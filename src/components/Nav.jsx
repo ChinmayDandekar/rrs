@@ -3,8 +3,31 @@ import logo from '../assets/RRSlogo.svg'
 import name from '../assets/RRSname.svg'
 import { Link } from 'react-router-dom'
 import SearchBox from './SearchBox'
+import Advancedsearch from './AdvancedSearch'
+import arrow from '../assets/arrow.svg'
+import { auth } from "../firebase";
 
-const Nav = ({ LinkArray = ['contact', 'Login', 'register'], BackgroundStyle = {}, SearchBar = false, AdvancedSearch=false, autoRecipe, onKeyDown,onSearchTextChange, onClickAutoRecipe }) => {
+import { useAuthState } from "react-firebase-hooks/auth";
+
+
+const Nav = ({ LinkArray = "Home", BackgroundStyle = {}, SearchBar = false, AdvancedSearch=false, autoRecipe, onKeyDown,onSearchTextChange, onClickAutoRecipe, openOrCloseAdvSearchContainer, AdvancedSearchQuery}) => {
+   
+    const [user, loading, error] = useAuthState(auth);
+    const [link, setLink] = React.useState(["contact", 'login', 'register'])
+   
+    React.useEffect(() => {
+        if (user) {
+            setLink(['create', 'logout']); 
+        } 
+        if (LinkArray == "Login") {
+            setLink(['contact', 'Home', 'register' ])
+        }
+        if (LinkArray == "Register") {
+            setLink(['contact','Home', 'Login'])
+        }
+    },[user])
+
+
     return (
         <div className="nav" style={BackgroundStyle}>
             <div className='inner-nav flex'>
@@ -18,8 +41,8 @@ const Nav = ({ LinkArray = ['contact', 'Login', 'register'], BackgroundStyle = {
                 {SearchBar ? <SearchBox Size={"small"} handleKeyDown={onKeyDown} onSearchTextChange={onSearchTextChange} />:null}
 
                 <ul className="menu">
-                    {LinkArray.map(link => <div className=" menu-item fw-black" key={link}><Link to={link==="Home"?"/":"/"+link}>{link}</Link></div>) }
-                    
+                    {link.map(link => <div className=" menu-item fw-black" key={link}><Link to={link==="Home"?"/":"/"+link}>{link}</Link></div>) }
+                   {user && <div className=" menu-item fw-black">Hello, { user.displayName }</div>} 
                 </ul>
                 
             </div>
@@ -37,8 +60,8 @@ const Nav = ({ LinkArray = ['contact', 'Login', 'register'], BackgroundStyle = {
                         )
                     })}
                 </div>
-                : <div className="advanced-search menu-item fw-black">Advanced Search</div>):null}
-                
+                : <div className="advanced-search menu-item fw-black" onClick={openOrCloseAdvSearchContainer}>Advanced Search <span><img src={arrow} className="arrow-icon" alt="" /></span></div>):null}
+            <Advancedsearch closeAdvSearchContainer={openOrCloseAdvSearchContainer} AdvancedSearchQuery={AdvancedSearchQuery}/>
         </div>
     )
 }

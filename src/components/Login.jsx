@@ -24,11 +24,11 @@ const Login = () => {
 
     return (
         <>
-            <Nav LinkArray={['Home','contact','register']}/>
+            <Nav LinkArray="Login"/>
             <div className='login-container container flex'>
             <div className="inner-container left flex">
                 <h1>Login<span>.</span></h1>
-                    <input type="text" name='username' id='username' placeholder='Username' value={ email} onChange={(e)=> setEmail(e.target.value)} autoComplete='off' />
+                    <input type="text" name='username' id='username' placeholder='Email' value={ email} onChange={(e)=> setEmail(e.target.value)} autoComplete='off' />
                 <h3 className="error-msg menu-item">Incorrect Username</h3>
                     <input type="password" name='password' id='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} autoComplete='off'/>
                 <h3 className="error-msg menu-item">Incorrect Password</h3>

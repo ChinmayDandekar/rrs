@@ -8,15 +8,15 @@ import axios from "axios"
 const Key = "1d2d61c30a2447b9adf9eec22603bf2b";
 
 
-const SearchPage = ({ handleKeyDown, searchedRecipes, recipeId, onSearchTextChange, autoRecipe, onRecipeClick,searchInput, onClickAutoRecipe}) => {
+const SearchPage = ({ handleKeyDown, searchedRecipes, recipeId, onSearchTextChange, autoRecipe, onRecipeClick,searchInput, onClickAutoRecipe,openOrCloseAdvSearchContainer,AdvancedSearchQuery}) => {
 
  
 
   return (
     <>
-      <Nav SearchBar={true} onKeyDown={handleKeyDown} onSearchTextChange={onSearchTextChange} AdvancedSearch={true} searchInput={searchInput} autoRecipe={ autoRecipe } onClickAutoRecipe={onClickAutoRecipe}/>
+      <Nav LinkArray='Home' SearchBar={true} onKeyDown={handleKeyDown} onSearchTextChange={onSearchTextChange} AdvancedSearch={true} searchInput={searchInput} autoRecipe={autoRecipe} onClickAutoRecipe={onClickAutoRecipe} openOrCloseAdvSearchContainer={openOrCloseAdvSearchContainer}  AdvancedSearchQuery={ AdvancedSearchQuery }/>
       
-      {console.log(autoRecipe)}
+      {/* {console.log(autoRecipe)} */}
 
       <div className="sub-nav">
       {/* {autoRecipe.length > 0 ?

@@ -11,7 +11,7 @@ const Key = "d30c83bf5f2e45638c5a2c4a1e756344";
 // const Key = "92366db4df0b4d48b14220ea95c1c81c";
 
 
-const RecipePage = ({ searchedRecipes, handleKeyDown, onSearchTextChange, searchInput, autoRecipe, onClickAutoRecipe }) => {
+const RecipePage = ({ searchedRecipes, handleKeyDown, onSearchTextChange, searchInput, autoRecipe, onClickAutoRecipe,openOrCloseAdvSearchContainer,  AdvancedSearchQuery }) => {
 
     const { state } = useLocation();
     const searchRecipes = state.searchedRecipes;
@@ -34,7 +34,7 @@ const RecipePage = ({ searchedRecipes, handleKeyDown, onSearchTextChange, search
         recipeData = searchRecipes.filter((recipe) => recipe.id == Id)
     
     recipeData = recipeData[0];
-    console.log(recipeData)
+    // console.log(recipeData)
     
     
     const recipeIngredients = recipeData.extendedIngredients;
@@ -43,6 +43,7 @@ const RecipePage = ({ searchedRecipes, handleKeyDown, onSearchTextChange, search
     const recipeDirections = recipeData.analyzedInstructions[0].steps;
     const recipeSummary = recipeData.summary;
     const recipeImage = recipeData.image;
+    const servings = recipeData.servings;
     
 
 
@@ -51,12 +52,12 @@ const RecipePage = ({ searchedRecipes, handleKeyDown, onSearchTextChange, search
     
     if (nutritionData !== undefined) {
         
-        nutritionData = nutritionData.filter((nutri, index) => index < 5)
         // console.log(nutritionData)
+        nutritionData = nutritionData.filter((nutri, index) => index < 5)
     }
     return (
         <>
-            <Nav SearchBar={true} AdvancedSearch="true" onKeyDown={handleKeyDown} onSearchTextChange={onSearchTextChange} searchInput={searchInput} autoRecipe={autoRecipe} onClickAutoRecipe={onClickAutoRecipe}/>
+            <Nav LinkArray='Home' SearchBar={true} AdvancedSearch="true" onKeyDown={handleKeyDown} onSearchTextChange={onSearchTextChange} searchInput={searchInput} autoRecipe={autoRecipe} onClickAutoRecipe={onClickAutoRecipe}openOrCloseAdvSearchContainer={openOrCloseAdvSearchContainer}  AdvancedSearchQuery={ AdvancedSearchQuery }/>
             <div className="sub-nav">
                 <div className='menu-item fw-black'>Advanced Search</div>
             </div>
@@ -64,8 +65,12 @@ const RecipePage = ({ searchedRecipes, handleKeyDown, onSearchTextChange, search
 
                 <div className="container cont-recipe-info flex">
                     <div className="cont-header flex">
-                        <h1>{ recipeData.title }</h1>
-                        <div className="cont-recipe-time">Time To Make: <span>{timeToMake} Mins</span></div>
+                        <h1>{recipeData.title}</h1>
+                        <div className='cont-recipes-time flex' style={{ gap : "40px" }}>
+
+                            <div className="cont-recipe-time"> Total Servings: <span>{ servings } Serves</span></div>
+                            <div className="cont-recipe-time">Time To Make: <span>{timeToMake} Mins</span></div>
+                        </div>
                     </div> 
                     <div className="cont-body flex">
                         <div className="img-cont"> <img className="flex" src={recipeImage} alt="" /></div>

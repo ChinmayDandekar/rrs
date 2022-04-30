@@ -4,6 +4,7 @@ import Nav from './Nav'
 import SearchBox from './SearchBox'
 import Recipe from './Recipe'
 import axios from "axios"
+import arrowIcon from '../assets/arrow.svg'
 
 // import { useNavigate } from "react-router-dom"
 
@@ -16,7 +17,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 
 
-const Home = ({ featuredRecipes, handleKeyDown, onRecipeClick, recipeId, autoRecipe, onSearchTextChange, searchInput, searchedRecipes, onClickAutoRecipe}) => {
+const Home = ({ featuredRecipes, handleKeyDown, onRecipeClick, recipeId, autoRecipe, onSearchTextChange, searchInput, searchedRecipes, onClickAutoRecipe, openOrCloseAdvSearchContainer, AdvancedSearchQuery}) => {
 
     // const featuredRecipes = [
     //             {id: 638729, title: 'Chinese Veg Fried rice', image: 'https://spoonacular.com/recipeImages/638729-312x231.jpg', imageType: 'jpg'},
@@ -202,7 +203,7 @@ const Home = ({ featuredRecipes, handleKeyDown, onRecipeClick, recipeId, autoRec
         <>
             
             
-            {user ? <Nav LinkArray={['contact', 'create', 'logout']} autoRecipe={autoRecipe}/>: <Nav autoRecipe={autoRecipe} onClickAutoRecipe={onClickAutoRecipe} /> }
+            <Nav LinkArray='Home' autoRecipe={autoRecipe} onClickAutoRecipe={onClickAutoRecipe} openOrCloseAdvSearchContainer={openOrCloseAdvSearchContainer} AdvancedSearchQuery={ AdvancedSearchQuery }/> 
             
             {/* <Nav /> */}
             <div className="search-container container flex">
@@ -221,7 +222,7 @@ const Home = ({ featuredRecipes, handleKeyDown, onRecipeClick, recipeId, autoRec
                             )
                         })}
                     </div>
-                    : <div className="menu-item fw-black">Advanced Search</div>)}
+                    : <div className="menu-item fw-black advanced-search-">Advanced Search <span><img src={ arrowIcon } className='arrow-icon' alt="" /></span></div>)}
                 
                 
             
